@@ -1,0 +1,11 @@
+apiVersion: xl-deploy/v1
+kind: Deployment
+spec:
+  package: !format "Applications/QSVC/CUSTOMERPROFILE/%appversion%"
+  environment: Environments/OPTIMA/QSVC/DEV/PMSA/tomcat
+  #orchestrators:
+  #  - parallel-by-deployment-group
+  #  - sequential-by-container
+  onSuccessPolicy: ARCHIVE
+
+

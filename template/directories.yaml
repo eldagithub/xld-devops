@@ -1,0 +1,30 @@
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: Applications/QSVC
+  children:
+  - directory: CUSTOMERPROFILE
+---
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- directory: Environments/OPTIMA
+  children:
+  - directory: QSVC
+    children:
+    - directory: DEV
+      children:
+      - directory: PMSA
+        children:
+        - directory: CUSTOMERPROFILE
+---
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- directory: Infrastructure/OPTIMA
+  children:
+  - directory: QSVC
+    children:
+    - directory: DEV
+      children:
+      - directory: PMSA

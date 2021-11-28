@@ -1,0 +1,33 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: Applications/Java
+  children:
+  - name: PetPortal
+    type: udm.Application
+    children:
+    - name: !value appversion
+      type: udm.DeploymentPackage
+      children:
+      - name: petclinic
+        type: jee.War
+        scanPlaceholders: true
+        file: !file "../PetClinic/target/PetClinic.war"
+      - name: petclinic-backend
+        type: jee.War
+        file: !file "../PetClinic-Backend/target/PetClinic-Backend.war"
+      - name: sql
+        type: sql.SqlScripts
+        file: !file "../dar/sql"
+      - name: petDataSource
+        type: jee.DataSourceSpec
+        jndiName: jdbc/petds
+      - name: testPage
+        type: smoketest.HttpRequestTest
+        url: '{{smoke.test.url}}'
+        expectedResponseText: '{{TITLE}}'
+      - name: logger
+        type: app.Logger
+        file: !file "../dar/config"
+        scanPlaceholders: true

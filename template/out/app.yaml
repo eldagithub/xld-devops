@@ -1,0 +1,36 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: Applications/Java
+  children:
+  - name: PetPortal
+    type: udm.Application
+    children:
+    - name: 2.0.93
+      type: udm.DeploymentPackage
+      deployables:
+      - name: petDataSource
+        type: jee.DataSourceSpec
+        jndiName: jdbc/petds
+      - name: petclinic-backend
+        type: jee.War
+        fileEncodings:
+          ".+\\.properties": ISO-8859-1
+        file: !file "artifacts/Applications/Java/PetPortal/2.0.93/petclinic-backend/PetClinic-Backend.war"
+      - name: sql
+        type: sql.SqlScripts
+        placeholders:
+        - TITLE
+        fileEncodings:
+          ".+\\.properties": ISO-8859-1
+        file: !file "artifacts/Applications/Java/PetPortal/2.0.93/sql/sql.zip"
+      - name: petclinic
+        type: jee.War
+        scanPlaceholders: true
+        fileEncodings:
+          ".+\\.properties": ISO-8859-1
+        file: !file "artifacts/Applications/Java/PetPortal/2.0.93/petclinic/PetClinic.war"
+- directory: Applications/QSVC
+  children:
+  - directory: CUSTOMERPROFILE

@@ -1,0 +1,22 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: Applications/QSVC/CUSTOMERPROFILE
+  children:
+  - name: qsvc-cutsomerprofile-war
+    type: udm.Application
+    children:
+    - name: !value appversion
+      type: udm.DeploymentPackage
+      children:
+      - name: customerprofile
+        type: jee.War
+        scanPlaceholders: true
+        file: !file "./war/customerprofile.war"
+      - name: sql
+        type: sql.SqlScripts
+        file: !file "./sql"
+      - name: customerProfileDataSource
+        type: jee.DataSourceSpec
+        jndiName: jdbc/cprDS
