@@ -8,13 +8,9 @@
 
 cd "$(dirname "$0")"
 
-. ./http-function.sh
+. ./http-function.sh $(basename -s .sh -- "$0")
 . ../etc/node.lst
 
-
-SCRIPTNAME=$(basename -s .sh -- "$0")
-ACTION=${SCRIPTNAME%_*}
-APP=$(echo $SCRIPTNAME | sed "s/${ACTION}_//")
 
 URL="$URLTOMCAT/$ACTION?path=/$APP"
 echo URL : $URL

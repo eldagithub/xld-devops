@@ -8,16 +8,8 @@
 
 cd "$(dirname "$0")"
 
-. ./http-function.sh
-. ../etc/node.lst
+. ./http-function.sh $(basename -s .sh -- "$0")
 
-
-SCRIPTNAME=$(basename -s .sh -- "$0")
-ACTION=${SCRIPTNAME%_*}
-APP=$(echo $SCRIPTNAME | sed "s/${ACTION}_//")
-
-URL="$URLTOMCAT/$ACTION?path=/$APP"
-echo URL : $URL
 
 httpcheckCodeBody $URL OK*
 

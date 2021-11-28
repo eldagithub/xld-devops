@@ -1,14 +1,9 @@
 . ../etc/node.lst
 
 SCRIPTNAME=$1
-ACTION=$2
-APP=$SCRIPTNAME
 
-case "$ACTION" in
-  (start|start|reload) ;;
-  (*) echo "Please provide allowed input : stop|start|reload" && exit 11 ;;
-esac
-
+export ACTION=${SCRIPTNAME%_*}
+export APP=$(echo $SCRIPTNAME | sed "s/${ACTION}_//")
 
 URL="$URLTOMCAT/$ACTION?path=/$APP"
 echo URL : $URL
@@ -19,7 +14,7 @@ set +x
     local url=$1
     local body=$2
 
-    [[ -z "$url" ]] || [[ -z "$body" ]] && echo "Input are not fully provided : httpcheckCodeBody url body" && return 12
+    [[ -z "$url" ]] || [[ -z "$body" ]] && echo "Input are not fully provided : httpcheckCodeBody url body" && return 10
 
     #local http_response=$(curl $TOMCAT_CONNEXION -w "HTTPSTATUS:%{http_code}" --silent "$URL")
     local http_response=$(curl $CURL_OPTS --silent --write-out "HTTPSTATUS:%{http_code}" -X GET $URL)
@@ -30,10 +25,8 @@ set +x
     echo http_status : $http_status
     echo http_body : $http_body
 
-    [[ $http_status != 200 ]] && echo http status not 200 && return 13
-    [[ $http_body != ${body} ]] && echo http body does not contains $body && return 14
+    [[ $http_status != 200 ]] && echo http status not 200 && return 11
+    [[ $http_body != ${body} ]] && echo http body does not contains $body && return 12
 
     return 0
 }
-
-
