@@ -1,0 +1,32 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/QSVC/ORDERPASSING/qsvc-orderpassing-war/a.b.d
+  type: udm.DeploymentPackage
+  deployables:
+  - name: orderpassing.properties
+    type: tomcat.ConfigurationFile
+    tags:
+    - wdxa
+    fileEncodings:
+      ".+\\.properties": ISO-8859-1
+    targetDirectory: /Users/elmos/work/softs/wdxa/parm
+    file: !file "artifacts/Applications/QSVC/ORDERPASSING/qsvc-orderpassing-war/a.b.d/orderpassing.properties/orderpassing.properties"
+  - name: orderpassing-war
+    type: jee.War
+    tags:
+    - wdxa
+    scanPlaceholders: true
+    fileEncodings:
+      ".+\\.properties": ISO-8859-1
+    file: !file "artifacts/Applications/QSVC/ORDERPASSING/qsvc-orderpassing-war/a.b.d/orderpassing-war/orderPassing-feature1.0.0.war"
+  - name: reload.orderpassing
+    type: advcmd.Command
+    tags:
+    - wdxa
+    command: echo "reload orderpassing"
+    createOrder: "100"
+    destroyOrder: "40"
+    alwaysRun: "true"
+    noopOrder: "100"

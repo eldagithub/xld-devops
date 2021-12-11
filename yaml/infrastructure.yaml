@@ -9,13 +9,17 @@ spec:
     os: UNIX
     address: deployit.vm
     username: elmos
-    password: ubuntu
+    password: pass2000+!
+    tags: 
+    - !format "%profile%"
     children:
     - name: !format "%profile%.tomcat"
       type: tomcat.Server
       home: !format "/Users/elmos/work/softs/%profile%/tdcom%profile%"
-      startCommand: !format "/Users/elmos/work/softs/%profile%/tdcom%profile%/bin/startup.sh && sleep 5"
-      stopCommand: !format "/Users/elmos/work/softs/%profile%/tdcom%profile%/bin/shutdown.sh && sleep 5"
+      startCommand: echo " not used, reload used instead"
+      stopCommand: echo " not used, reload used instead"
+      tags: 
+      - !format "%profile%"
       children:
         - name: !format "%profile%.tomcat.vh"
           type: tomcat.VirtualHost
