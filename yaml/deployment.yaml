@@ -1,0 +1,11 @@
+apiVersion: xl-deploy/v1
+kind: Deployment
+spec:
+  package: !format "Applications/QSVC/CUSTOMERPROFILE/qsvc-%service%-war/%appversion%"
+  environment: !format "Environments/OPTIMA/QSVC/DEV/%PROFILE%/OPTIMA_QSVC_DEV_%PROFILE%_ENV"
+  #orchestrators:
+  #  - parallel-by-deployment-group
+  #  - sequential-by-container
+  onSuccessPolicy: ARCHIVE
+
+

@@ -1,0 +1,32 @@
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- directory: !format "Environments/OPTIMA/QSVC/DEV/%PROFILE%"
+  children:
+    - name: !format "OPTIMA_QSVC_DEV_%PROFILE%_DICT"
+      type: udm.Dictionary
+      entries:
+        TITLE: !value title
+        logFilePath: /dev/null
+        logRootLevel: DEBUG
+        title: !value title
+        logLevel: DEBUG
+        timeout: 30
+    - name: !format "OPTIMA_QSVC_DEV_%PROFILE%_DB_DICT"
+      type: udm.Dictionary
+      entries:
+        tomcat.DataSource.driverClassName: com.mysql.jdbc.Driver
+        tomcat.DataSource.url: jdbc:mysql://localhost/petclinic
+        tomcat.DataSource.username: scott
+        tomcat.DataSource.context: petclinic
+      encryptedEntries:
+        tomcat.DataSource.password: password  
+    - name: !format "OPTIMA_QSVC_DEV_%PROFILE%_ENV"
+      type: udm.Environment
+      members:
+      - !format "~Infrastructure/OPTIMA/QSVC/DEV/%PROFILE%/host-vm/%profile%.tomcat/%profile%.tomcat.vh"
+      - !format "~Infrastructure/OPTIMA/QSVC/DEV/%PROFILE%/host-vm/%profile%.tomcat"
+      - !format "~Infrastructure/OPTIMA/QSVC/DEV/%PROFILE%/host-vm"
+      dictionaries:
+      - !format "~Environments/OPTIMA/QSVC/DEV/%PROFILE%/OPTIMA_QSVC_DEV_%PROFILE%_DICT"
+      - !format "~Environments/OPTIMA/QSVC/DEV/%PROFILE%/OPTIMA_QSVC_DEV_%PROFILE%_DB_DICT"

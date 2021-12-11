@@ -1,0 +1,23 @@
+---
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- directory: !format "Infrastructure/OPTIMA/QSVC/DEV/%PROFILE%"
+  children:
+  - name: host-vm
+    type: overthere.SshHost
+    os: UNIX
+    address: deployit.vm
+    username: elmos
+    password: ubuntu
+    children:
+    - name: !format "%profile%.tomcat"
+      type: tomcat.Server
+      home: !format "/Users/elmos/work/softs/%profile%/tdcom%profile%"
+      startCommand: !format "/Users/elmos/work/softs/%profile%/tdcom%profile%/bin/startup.sh && sleep 5"
+      stopCommand: !format "/Users/elmos/work/softs/%profile%/tdcom%profile%/bin/shutdown.sh && sleep 5"
+      children:
+        - name: !format "%profile%.tomcat.vh"
+          type: tomcat.VirtualHost
+          tags: 
+          - !format "%profile%"

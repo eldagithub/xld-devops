@@ -1,0 +1,11 @@
+apiVersion: xl-deploy/v1
+kind: Deployment
+spec:
+  package: !format "Applications/QSVC/CUSTOMERPROFILE/qsvc-cutsomerprofile-war/%appversion%"
+  environment: Environments/OPTIMA/QSVC/DEV/PMSA/OPTIMA_QSVC_DEV_PMSA_ENV
+  #orchestrators:
+  #  - parallel-by-deployment-group
+  #  - sequential-by-container
+  onSuccessPolicy: ARCHIVE
+
+

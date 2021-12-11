@@ -1,0 +1,18 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: !format "Applications/QSVC/%SERVICE%"
+  children:
+  - name: !format "qsvc-%service%-war"
+    type: udm.Application
+    children:
+    - name: !value appversion
+      type: udm.DeploymentPackage
+      children:
+      - name: !format "%service%"
+        type: jee.War
+        scanPlaceholders: true
+        file: !file "./war/customer-agreement-3.1.3.war"
+        tags: 
+        - !format "%profile%"
