@@ -1,0 +1,27 @@
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- directory: !format "Environments/%POOL%/%QSVC%/%ENV%/%PROFILE%"
+  children:
+    - name: !format "%POOL%_%QSVC%_%ENV%_%PROFILE%_DICT"
+      type: udm.Dictionary
+      entries:
+        qsvc.home: !value home
+        qsvc.profile.name: !value profile
+        qsvc.profile.home: !format "%home%/%profile%"
+        qsvc.profile.start: !format "%home%/%profile%/scripts/start.sh"
+        qsvc.profile.stop: !format "%home%/%profile%/scripts/stop.sh"
+        qsvc.profile.adminapp.reload: !format "%home%/%profile%/scripts/adminapp.sh reload "
+        qsvc.profile.adminapp.check: !format "%home%/%profile%/scripts/adminapp.sh check "
+        qsvc.profile.tomcat.name: !value tomcatnode
+        qsvc.profile.tomcat.port.http: !value porthttp
+        qsvc.profile.tomcat.port.https: !value porthttps
+    - name: !format "%POOL%_%QSVC%_%ENV%_%PROFILE%_ENV"
+      type: udm.Environment
+      members:
+      - !format "~Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%server%/%profile%.tomcat/%profile%.tomcat.vh"
+      - !format "~Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%server%/%profile%.tomcat"
+      - !format "~Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%server%"
+      dictionaries:
+      - !format "~Environments/%POOL%/%QSVC%/%ENV%/%PROFILE%/%POOL%_%QSVC%_%ENV%_%PROFILE%_DICT"
+

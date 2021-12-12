@@ -1,7 +1,8 @@
+---
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- directory: !format "Applications/%QSVC%/%SERVICE%"
+- directory: !format "Applications/QSVC/%SERVICE%"
   children:
   - name: !format "qsvc-%service%-war"
     type: udm.Application
@@ -17,19 +18,18 @@ spec:
         - !format "%profile%"
       - name: !format "%service%.properties"
         type: tomcat.ConfigurationFile
-        scanPlaceholders: true
         fileEncodings:
           ".+\\.properties": ISO-8859-1
-        targetDirectory: !format "{{qsvc.profile.home}}/parm"
+        targetDirectory: !format "/Users/elmos/work/softs/%profile%/parm"
         file: !file "./parm/config.properties"
         tags: 
         - !format "%profile%"
       - name: !format "%profile%.reload.orderpassing"
         type: advcmd.Command
-        command: echo "{{qsvc.profile.adminapp.reload}}"
+        command: echo "reload orderpassing"
         createOrder: "100"
         destroyOrder: "40"
         alwaysRun: "true"
         noopOrder: "100"
         tags: 
-        - !format qsvc.reload
+        - !format "%profile%"

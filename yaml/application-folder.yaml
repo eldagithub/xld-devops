@@ -2,7 +2,7 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- directory: !format "Applications/QSVC/%SERVICE%"
+- directory: !format "Applications/%QSVC%/%SERVICE%"
   children:
   - name: !format "qsvc-%service%-war"
     type: udm.Application
@@ -20,16 +20,16 @@ spec:
         type: file.Folder
         fileEncodings:
           ".+\\.properties": ISO-8859-1
-        targetPath: !format "/Users/elmos/work/softs/%profile%/parm"
-        file: !file "./parm2"
+        targetPath: !format "{{qsvc.profile.home}}/parm"
+        file: !file "./parm"
         tags: 
         - !format "%profile%"
       - name: !format "%profile%.reload.orderpassing"
         type: advcmd.Command
-        command: echo "reload orderpassing"
+        command: echo "{{qsvc.profile.adminapp.reload}}"
         createOrder: "100"
         destroyOrder: "40"
         alwaysRun: "true"
         noopOrder: "100"
         tags: 
-        - !format "%profile%"
+        - qsvc.reload
