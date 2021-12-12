@@ -6,21 +6,16 @@ spec:
     - name: !format "OPTIMA_QSVC_DEV_%PROFILE%_DICT"
       type: udm.Dictionary
       entries:
-        TITLE: !value title
-        logFilePath: /dev/null
-        logRootLevel: DEBUG
-        title: !value title
-        logLevel: DEBUG
-        timeout: 30
-    - name: !format "OPTIMA_QSVC_DEV_%PROFILE%_DB_DICT"
-      type: udm.Dictionary
-      entries:
-        tomcat.DataSource.driverClassName: com.mysql.jdbc.Driver
-        tomcat.DataSource.url: jdbc:mysql://localhost/petclinic
-        tomcat.DataSource.username: scott
-        tomcat.DataSource.context: petclinic
-      encryptedEntries:
-        tomcat.DataSource.password: password  
+        qsvc.home: !value home
+        qsvc.profile.name: !value profile
+        qsvc.profile.home: !format "%home%/%profile%"
+        qsvc.profile.start: !format "%home%/scripts/start.sh"
+        qsvc.profile.stop: !format "%home%/scripts/stop.sh"
+        qsvc.profile.adminapp.reload: !format "%home%/scripts/adminapp.sh reload "
+        qsvc.profile.adminapp.check: !format "%home%/scripts/adminapp.sh check "
+        qsvc.profile.tomcat.name: !value tomcatnode
+        qsvc.profile.tomcat.port.http: !value porthttp
+        qsvc.profile.tomcat.port.https: !value porthttps
     - name: !format "OPTIMA_QSVC_DEV_%PROFILE%_ENV"
       type: udm.Environment
       members:
@@ -29,4 +24,3 @@ spec:
       - !format "~Infrastructure/OPTIMA/QSVC/DEV/%PROFILE%/host-vm"
       dictionaries:
       - !format "~Environments/OPTIMA/QSVC/DEV/%PROFILE%/OPTIMA_QSVC_DEV_%PROFILE%_DICT"
-      - !format "~Environments/OPTIMA/QSVC/DEV/%PROFILE%/OPTIMA_QSVC_DEV_%PROFILE%_DB_DICT"
