@@ -1,0 +1,22 @@
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- directory: !format "Environments/%POOL%"
+  children:
+  - directory: !value QSVC
+    children:
+    - directory: !value ENV
+---
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- directory: !format "Infrastructure/%POOL%"
+  children:
+  - directory: !value QSVC
+    children:
+    - directory: !value ENV
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: !format "Applications/%QSVC%"

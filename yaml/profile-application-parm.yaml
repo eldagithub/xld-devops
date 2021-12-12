@@ -10,16 +10,6 @@ spec:
     - name: !value appversion
       type: udm.DeploymentPackage
       children:
-      - name: !format "%profile%.stop-parm"
-        type: advcmd.Command
-        command: echo "{{qsvc.profile.stop}}"
-        undoCommand: echo "{{qsvc.profile.stop}}"
-        createOrder: "10"
-        destroyOrder: "5"
-        alwaysRun: "true"
-        noopOrder: "10"
-        tags: 
-        - qsvc.cmd      
       - name: !format "%profile%.parm"
         type: file.Folder
         fileEncodings:
@@ -27,14 +17,4 @@ spec:
         targetPath: !format "{{qsvc.profile.home}}/parm"
         file: !file "./profile-parm"
         tags: 
-        - qsvc.cmd
-      - name: !format "%profile%.start-parm"
-        type: advcmd.Command
-        command: echo "{{qsvc.profile.start}}"
-        undoCommand: echo "{{qsvc.profile.start}}"
-        createOrder: "100"
-        destroyOrder: "40"
-        alwaysRun: "true"
-        noopOrder: "100"
-        tags: 
-        - qsvc.cmd
+        - !format "%profile%"

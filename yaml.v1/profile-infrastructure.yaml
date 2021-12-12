@@ -1,0 +1,16 @@
+---
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- name: !format "Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%server%/%profile%.tomcat" 
+  type: tomcat.Server
+  tags:
+  - !format "%profile%"
+  home: !format "%home%/%profile%/%tomcatnode%"
+  startCommand: "echo \" not used, reload used instead\""
+  stopCommand: "echo \" not used, reload used instead\""
+  children:
+  - name: !format "%profile%.tomcat.vh"
+    type: tomcat.VirtualHost
+    tags:
+    - !format "%profile%"

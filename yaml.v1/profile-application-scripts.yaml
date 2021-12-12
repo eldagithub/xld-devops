@@ -4,17 +4,17 @@ kind: Applications
 spec:
 - directory: !format "Applications/%QSVC%/%PROFILE%"
   children:
-  - name: !format "qsvc-%profile%-lib"
+  - name: !format "qsvc-%profile%-scripts"
     type: udm.Application
     children:
     - name: !value appversion
       type: udm.DeploymentPackage
       children:
-      - name: !format "%profile%.lib"
+      - name: !format "%profile%.scripts"
         type: file.Folder
         fileEncodings:
           ".+\\.properties": ISO-8859-1
-        targetPath: !format "{{qsvc.profile.home}}/lib"
-        file: !file "./profile-lib"
+        targetPath: !format "{{qsvc.profile.home}}/scripts"
+        file: !file "./profile-scripts"
         tags: 
-        - !format "%profile%"
+        - qsvc.cmd

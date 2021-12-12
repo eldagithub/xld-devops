@@ -1,48 +1,35 @@
 Applications/%QSVC%/%SERVICE%
 Environments/%POOL%/%QSVC%/%ENV%
-Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%PROFILE%-%server%/%profile%.tomcat
+Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%server%/%profile%.tomcat
 
 
 
-QSVC=QORESERVICE
-qsvc=qoreservice
-POOL=SGS
-pool=sgs
-ENV=DEV
-envenv=dev
+QSVC=QORESVC4
+qsvc=qoresvc4
+POOL=NEXTRELEASE4
+pool=nextrelease4
+ENV=SIM4
+envenv=sim4
 home=/Users/s2ipgm/$qsvc/$pool/$envenv
 server=is2ive1011
 
 xl apply  -f qsvc-xebialabs.yaml --values appversion=$APP_VERSION,QSVC=$QSVC,POOL=$POOL,ENV=$ENV,home=$home,server=$server,PROFILE=$PROFILE,profile=$profile,SERVICE=$SERVICE,service=$service,tomcatnode=$tomcatnode,porthttp=$porthttp,porthttps=$porthttps
 
-APP_VERSION=1.0.0
-PROFILE=PMSA
-profile=pmsa
+APP_VERSION=88.m.n
+PROFILE=RDM4
+profile=rdm4
 tomcatnode=tdcom$profile
 porthttp=8080
 porthttps=8081
 
-xl apply  -f profile-application-parm.yaml  --values appversion=$APP_VERSION,QSVC=$QSVC,PROFILE=$PROFILE,profile=$profile
-xl apply  -f profile-application-lib.yaml  --values appversion=$APP_VERSION,QSVC=$QSVC,PROFILE=$PROFILE,profile=$profile
-xl apply  -f profile-application-scripts.yaml  --values appversion=$APP_VERSION,QSVC=$QSVC,PROFILE=$PROFILE,profile=$profile
-
 SERVICE=ISSUEDEVICE-$PROFILE
 service=issue-device-$profile
-xl apply  -f profile-xebialabs.yaml --values appversion=$APP_VERSION,QSVC=$QSVC,POOL=$POOL,ENV=$ENV,home=$home,PROFILE=$PROFILE,profile=$profile,server=$server,SERVICE=$SERVICE,service=$service,tomcatnode=$tomcatnode,porthttp=$porthttp,porthttps=$porthttps
 
-mkdir -p /Users/s2ipgm/$qsvc/$pool/$envenv/$profile/parm
-mkdir -p /Users/s2ipgm/$qsvc/$pool/$envenv/$profile/lib
-mkdir -p /Users/s2ipgm/$qsvc/$pool/$envenv/$profile/scripts
-mkdir -p /Users/s2ipgm/$qsvc/$pool/$envenv/$profile/$tomcatnode/webapps
+xl apply  -f profile-application-parm.yaml  --values appversion=$APP_VERSION,QSVC=$QSVC,POOL=$POOL,ENV=$ENV,home=$home,server=$server,PROFILE=$PROFILE,profile=$profile,SERVICE=$SERVICE,service=$service,tomcatnode=$tomcatnode,porthttp=$porthttp,porthttps=$porthttps
+xl apply  -f profile-application-lib.yaml  --values appversion=$APP_VERSION,QSVC=$QSVC,POOL=$POOL,ENV=$ENV,home=$home,server=$server,PROFILE=$PROFILE,profile=$profile,SERVICE=$SERVICE,service=$service,tomcatnode=$tomcatnode,porthttp=$porthttp,porthttps=$porthttps
+xl apply  -f profile-application-scripts.yaml  --values appversion=$APP_VERSION,QSVC=$QSVC,POOL=$POOL,ENV=$ENV,home=$home,server=$server,PROFILE=$PROFILE,profile=$profile,SERVICE=$SERVICE,service=$service,tomcatnode=$tomcatnode,porthttp=$porthttp,porthttps=$porthttps
 
-
-for fic in aaa bbb ccc ddd eee fff ggg; do echo $fic;
-
-SERVICE=ISSUEDEVICE-$PROFILE-$fic
-service=issue-device-$profile-$fic
-xl apply  -f application.yaml  --values appversion=$APP_VERSION,QSVC=$QSVC,PROFILE=$PROFILE,profile=$profile,SERVICE=$SERVICE,service=$service
-
-done
+xl apply  -f profile-xebialabs.yaml --values appversion=$APP_VERSION,QSVC=$QSVC,POOL=$POOL,ENV=$ENV,home=$home,server=$server,PROFILE=$PROFILE,profile=$profile,SERVICE=$SERVICE,service=$service,tomcatnode=$tomcatnode,porthttp=$porthttp,porthttps=$porthttps
 
 
 

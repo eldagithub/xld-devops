@@ -2,34 +2,37 @@
 apiVersion: xl-deploy/v1
 kind: Applications
 spec:
-- directory: !format "Applications/%QSVC%/%SERVICE%"
+- directory: !format "Applications/%QSVC%/%PROFILE%"
   children:
-  - name: !format "qsvc-%service%-war"
+  - name: !format "qsvc-%profile%-parm"
     type: udm.Application
     children:
     - name: !value appversion
       type: udm.DeploymentPackage
       children:
-      - name: !format "%service%"
-        type: jee.War
-        scanPlaceholders: true
-        file: !file "./war/generic.war"
+      - name: !format "%profile%.stop"
+        type: advcmd.Command
+        command: echo "{{qsvc.profile.stop}}"
+        createOrder: "20"
+        destroyOrder: "10"
+        alwaysRun: "true"
+        noopOrder: "20"
         tags: 
-        - !format "%profile%"
-      - name: !format "%service%.parm"
+        - qsvc.reload
+      - name: !format "%profile%.parm"
         type: file.Folder
         fileEncodings:
           ".+\\.properties": ISO-8859-1
         targetPath: !format "{{qsvc.profile.home}}/parm"
-        file: !file "./parm"
+        file: !file "./profile-parm"
         tags: 
         - !format "%profile%"
-      - name: !format "%profile%.reload.%service%"
+      - name: !format "%profile%.start"
         type: advcmd.Command
-        command: echo "{{qsvc.profile.adminapp.reload}}"
+        command: echo "{{qsvc.profile.start}}"
         createOrder: "100"
         destroyOrder: "40"
         alwaysRun: "true"
         noopOrder: "100"
         tags: 
-        - !format "%profile%"
+        - qsvc.cmd

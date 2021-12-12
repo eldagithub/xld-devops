@@ -19,9 +19,9 @@ spec:
     - name: !format "%POOL%_%QSVC%_%ENV%_%PROFILE%_ENV"
       type: udm.Environment
       members:
-      - !format "~Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%PROFILE%-%server%/%profile%.tomcat/%profile%.tomcat.vh"
-      - !format "~Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%PROFILE%-%server%/%profile%.tomcat"
-      - !format "~Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%PROFILE%-%server%"
+      - !format "~Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%server%/%profile%.tomcat/%profile%.tomcat.vh"
+      - !format "~Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%server%/%profile%.tomcat"
+      - !format "~Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%server%"
       dictionaries:
       - !format "~Environments/%POOL%/%QSVC%/%ENV%/%PROFILE%/%POOL%_%QSVC%_%ENV%_%PROFILE%_DICT"
 

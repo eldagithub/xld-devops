@@ -17,4 +17,4 @@ spec:
         targetPath: !format "{{qsvc.profile.home}}/scripts"
         file: !file "./profile-scripts"
         tags: 
-        - qsvc.cmd
+        - !format "%profile%"

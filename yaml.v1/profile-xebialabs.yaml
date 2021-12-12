@@ -3,5 +3,6 @@ kind: Import
 metadata:
   imports:
     - profile-directories.yaml
+    - application.yaml
     - profile-infrastructure.yaml
     - profile-configuration.yaml

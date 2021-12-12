@@ -1,0 +1,6 @@
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- directory: !format "Environments/%POOL%/%QSVC%/%ENV%"
+  children:
+  - directory: !format "%PROFILE%"

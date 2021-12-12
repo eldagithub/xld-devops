@@ -4,7 +4,7 @@ kind: Infrastructure
 spec:
 - directory: !format "Infrastructure/%POOL%/%QSVC%/%ENV%"
   children:
-  - name: !format "host-vm-%PROFILE%-%server%"
+  - name: !format "host-vm-%server%"
     type: overthere.SshHost
     os: UNIX
     address: deployit.vm

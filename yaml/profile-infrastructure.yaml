@@ -2,15 +2,26 @@
 apiVersion: xl-deploy/v1
 kind: Infrastructure
 spec:
-- name: !format "Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%server%/%profile%.tomcat" 
-  type: tomcat.Server
-  tags:
-  - !format "%profile%"
-  home: !format "%home%/%profile%/%tomcatnode%"
-  startCommand: "echo \" not used, reload used instead\""
-  stopCommand: "echo \" not used, reload used instead\""
+- directory: !format "Infrastructure/%POOL%/%QSVC%/%ENV%"
   children:
-  - name: !format "%profile%.tomcat.vh"
-    type: tomcat.VirtualHost
-    tags:
+  - name: !format "host-vm-%PROFILE%-%server%"
+    type: overthere.SshHost
+    os: UNIX
+    address: deployit.vm
+    username: elmos
+    password: pass2000+!
+    tags: 
     - !format "%profile%"
+    children:
+    - name: !format "%profile%.tomcat" 
+      type: tomcat.Server
+      tags:
+      - !format "%profile%"
+      home: !format "%home%/%profile%/%tomcatnode%"
+      startCommand: "echo \" not used, reload used instead\""
+      stopCommand: "echo \" not used, reload used instead\""
+      children:
+      - name: !format "%profile%.tomcat.vh"
+        type: tomcat.VirtualHost
+        tags:
+        - !format "%profile%"
