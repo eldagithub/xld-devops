@@ -1,3 +1,9 @@
+Applications/%QSVC%/%SERVICE%
+Environments/%POOL%/%QSVC%/%ENV%
+Infrastructure/%POOL%/%QSVC%/%ENV%/host-vm-%server%/%profile%.tomcat
+
+
+
 QSVC=QORESVC4
 qsvc=qoresvc4
 POOL=NEXTRELEASE4
@@ -18,6 +24,10 @@ porthttps=8081
 
 SERVICE=ISSUEDEVICE-$PROFILE
 service=issue-device-$profile
+
+xl apply  -f profile-application-parm.yaml  --values appversion=$APP_VERSION,QSVC=$QSVC,POOL=$POOL,ENV=$ENV,home=$home,server=$server,PROFILE=$PROFILE,profile=$profile,SERVICE=$SERVICE,service=$service,tomcatnode=$tomcatnode,porthttp=$porthttp,porthttps=$porthttps
+xl apply  -f profile-application-lib.yaml  --values appversion=$APP_VERSION,QSVC=$QSVC,POOL=$POOL,ENV=$ENV,home=$home,server=$server,PROFILE=$PROFILE,profile=$profile,SERVICE=$SERVICE,service=$service,tomcatnode=$tomcatnode,porthttp=$porthttp,porthttps=$porthttps
+xl apply  -f profile-application-scripts.yaml  --values appversion=$APP_VERSION,QSVC=$QSVC,POOL=$POOL,ENV=$ENV,home=$home,server=$server,PROFILE=$PROFILE,profile=$profile,SERVICE=$SERVICE,service=$service,tomcatnode=$tomcatnode,porthttp=$porthttp,porthttps=$porthttps
 
 xl apply  -f profile-xebialabs.yaml --values appversion=$APP_VERSION,QSVC=$QSVC,POOL=$POOL,ENV=$ENV,home=$home,server=$server,PROFILE=$PROFILE,profile=$profile,SERVICE=$SERVICE,service=$service,tomcatnode=$tomcatnode,porthttp=$porthttp,porthttps=$porthttps
 

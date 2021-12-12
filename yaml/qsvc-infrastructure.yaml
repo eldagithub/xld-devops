@@ -11,4 +11,4 @@ spec:
     username: elmos
     password: pass2000+!
     tags: 
-    - qsvc.reload
+    - qsvc.cmd
