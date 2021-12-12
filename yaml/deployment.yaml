@@ -1,11 +1,9 @@
 apiVersion: xl-deploy/v1
 kind: Deployment
 spec:
-  package: !format "Applications/%QSVC%/CUSTOMERPROFILE/qsvc-%service%-war/%appversion%"
+  package: !format "Applications/%QSVC%/%PROFILE%/%SERVICE%/qsvc-%service%-war/%appversion%"
   environment: !format "Environments/%POOL%/%QSVC%/%ENV%/%PROFILE%/%POOL%_%QSVC%_%ENV%_%PROFILE%_ENV"
   #orchestrators:
   #  - parallel-by-deployment-group
   #  - sequential-by-container
   onSuccessPolicy: ARCHIVE
-
-
