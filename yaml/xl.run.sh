@@ -11,7 +11,7 @@ pool=sgs
 ENV=DEV
 envenv=dev
 home=/Users/s2ipgm/$qsvc/$pool/$envenv
-server=is2ive1011
+server=is2ivb1011
 
 xl apply  -f qsvc-xebialabs.yaml --values appversion=$APP_VERSION,QSVC=$QSVC,POOL=$POOL,ENV=$ENV,home=$home,server=$server,PROFILE=$PROFILE,profile=$profile,SERVICE=$SERVICE,service=$service,tomcatnode=$tomcatnode,porthttp=$porthttp,porthttps=$porthttps
 
