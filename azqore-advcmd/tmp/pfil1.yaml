@@ -1,0 +1,20 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/TEST-XLD-ADV-CMD/profile-init-1.0.2
+  type: udm.DeploymentPackage
+  deployables:
+  - name: profile.init
+    type: advcmd.CommandFolder
+    tags:
+    - pmsa
+    fileEncodings:
+      ".+\\.properties": ISO-8859-1
+    command: "pwd \nls -alrt \nchmod u+x ./profile-init.sh\n\necho shhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n\
+      \ cat ./profile-init.sh"
+    createOrder: "65"
+    destroyOrder: "45"
+    alwaysRun: "false"
+    noopOrder: "65"
+    file: !file "artifacts/Applications/TEST-XLD-ADV-CMD/profile-init-1.0.1/profile.init/profile-init.zip"
